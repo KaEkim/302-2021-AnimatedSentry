@@ -1,5 +1,65 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1470305001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1470305002}
+  m_Layer: 0
+  m_Name: LeftHand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1470305002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470305001}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: -0.484, z: 0.07}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3989662333485865055}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1916588264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1916588265}
+  m_Layer: 0
+  m_Name: RightHand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1916588265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916588264}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.519, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3989662333670480630}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3989662333278821806
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,7 +250,8 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0.058999836, y: -0.01600933, z: 0.43830007}
   m_LocalScale: {x: 0.1173262, y: 0.3489446, z: 0.09256963}
-  m_Children: []
+  m_Children:
+  - {fileID: 1470305002}
   m_Father: {fileID: 3989662335284178022}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -431,7 +492,8 @@ Transform:
   m_LocalRotation: {x: -0.70710677, y: 0.000000036369098, z: -0.000000035575923, w: 0.70710677}
   m_LocalPosition: {x: 0.07099979, y: -0.0030998588, z: 0.44130015}
   m_LocalScale: {x: 0.11732617, y: 0.34894475, z: 0.09256964}
-  m_Children: []
+  m_Children:
+  - {fileID: 1916588265}
   m_Father: {fileID: 3989662333660924359}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -532,9 +594,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c90c91f0c5e47204199f9cc629dec34b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lockRotationX: 0
+  lockRotationX: 1
   lockRotationY: 0
-  lockRotationZ: 0
+  lockRotationZ: 1
 --- !u!1 &3989662334640238395
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,8 +907,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   wantsToTarget: 0
+  wantsToAttack: 1
   visionDistance: 10
-  visionAngle: 45
+  visionAngle: 60
+  armL: {fileID: 3989662335284178022}
+  armR: {fileID: 3989662333660924359}
 --- !u!114 &3408757127641273678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -862,6 +927,8 @@ MonoBehaviour:
   walkSpeed: 5
   leg1: {fileID: 3989662333543373080}
   leg2: {fileID: 3989662334744516074}
+  gravityMultiplier: 30
+  jumpImpulse: 10
 --- !u!1 &3989662335074130548
 GameObject:
   m_ObjectHideFlags: 0

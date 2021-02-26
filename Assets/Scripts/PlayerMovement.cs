@@ -12,7 +12,21 @@ public class PlayerMovement : MonoBehaviour
     public Transform leg1;
     public Transform leg2;
 
+    public float gravityMultiplier = 30;
+    public float jumpImpulse = 10;
+
     private Vector3 inputDirection = new Vector3();
+
+    
+
+    private float timeLeftGrounded = 0;
+
+    public bool isGrounded {
+        get
+        {
+            return pawn.isGrounded || timeLeftGrounded > 0;
+        }
+    }
 
     /// <summary>
     /// How fast the player is currently moving vertically (y-axis), in meters/second.
@@ -24,13 +38,29 @@ public class PlayerMovement : MonoBehaviour
     {
         cam = Camera.main;
         pawn = GetComponent<CharacterController>();
+
+        
     }
 
     // Update is called once per frame
     void Update() {
 
+        //Countdown for cototeTime
+        if (timeLeftGrounded > 0) timeLeftGrounded -= Time.deltaTime;
+
         MovePlayer();
-        WiggleLegs();
+        if (isGrounded)
+        {
+            WiggleLegs(); //think of this as both idle and walk
+        }
+        else AirLegs(); //non-grounded
+    }
+
+    private void AirLegs()
+    {
+        //leg1.localRotation = AnimMath.Slide(leg1.localRotation, Quaternion.Euler(30, 0), .001f);
+        //leg2.localRotation = AnimMath.Slide(leg2.localRotation, Quaternion.Euler(30, 0), .001f);
+
     }
 
     private void WiggleLegs() {
@@ -64,6 +94,9 @@ public class PlayerMovement : MonoBehaviour
         float h = Input.GetAxis("Horizontal"); // strafing?
         float v = Input.GetAxis("Vertical"); // forward / backward
 
+        bool isJumpHeld = Input.GetButton("Jump");
+        bool onJumpPress = Input.GetButtonDown("Jump");
+            
         bool isTryingToMove = (h != 0 || v != 0);
         if (isTryingToMove) {
             // turn to face the correct direction...
@@ -74,8 +107,12 @@ public class PlayerMovement : MonoBehaviour
         inputDirection = transform.forward * v + transform.right * h;
         if (inputDirection.sqrMagnitude > 1) inputDirection.Normalize();
 
+
+
+
+
         // apply gravity:
-        verticalVelocity += 10 * Time.deltaTime;
+        verticalVelocity += gravityMultiplier * Time.deltaTime;
 
         // adds lateral movement to vertical movement:
         Vector3 moveDelta = inputDirection * walkSpeed + verticalVelocity * Vector3.down;
@@ -83,8 +120,21 @@ public class PlayerMovement : MonoBehaviour
         // move pawn:
         CollisionFlags flags = pawn.Move(moveDelta * Time.deltaTime);
 
-        if(pawn.isGrounded) {
+        if (pawn.isGrounded)
+        {
             verticalVelocity = 0; // on ground, zero-out vertical-velocity
+            timeLeftGrounded = .15f;
+        }
+
+
+        if (isGrounded)
+        {
+            
+            if (isJumpHeld)
+            {
+                verticalVelocity = -jumpImpulse;
+                timeLeftGrounded = 0;
+            }
         }
     }
 }
