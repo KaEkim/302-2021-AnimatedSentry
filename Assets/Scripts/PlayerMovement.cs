@@ -58,8 +58,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void AirLegs()
     {
-        //leg1.localRotation = AnimMath.Slide(leg1.localRotation, Quaternion.Euler(30, 0), .001f);
-        //leg2.localRotation = AnimMath.Slide(leg2.localRotation, Quaternion.Euler(30, 0), .001f);
+        leg1.localRotation = AnimMath.Slide(leg1.localRotation, Quaternion.Euler(30, 0, 0), .001f);
+        leg2.localRotation = AnimMath.Slide(leg2.localRotation, Quaternion.Euler(-30, 0, 0), .001f);
 
     }
 
