@@ -8,9 +8,32 @@ public class HealthSystem : MonoBehaviour
 
     public float healthMax = 100;
 
+    int timer = 100;
+
+    bool isDead = false;
+
+    Vector3 scaleEffector = new Vector3(1.5f, 1.5f, 1.5f);
+
     private void Start()
     {
         health = healthMax;
+        
+
+    }
+
+    private void Update()
+    {
+        if (isDead)
+        {
+            if (timer > 0)
+            {
+                timer--;
+                this.transform.localScale -= scaleEffector;
+                print(timer);
+            }
+            if (timer <= 0) Destroy(this.gameObject);
+
+        }
     }
 
     public void TakeDamage(float dmgAmount)
@@ -23,13 +46,9 @@ public class HealthSystem : MonoBehaviour
 
         health -= dmgAmount;
 
-        if (health <= 0) Die();
+        if (health <= 0) isDead = true;
 
     }
-
-    public void Die()
-    {
-        Destroy(this.gameObject);
-    }
+    
 
 }

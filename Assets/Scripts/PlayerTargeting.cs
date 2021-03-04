@@ -89,7 +89,7 @@ public class PlayerTargeting : MonoBehaviour {
 
         camOrbit.Shake(.5f);
 
-        print("pew");
+        
         coolDownShoot = 1 / roundsPerSec;
 
         armL.localEulerAngles += new Vector3(-20, 0, 0);
@@ -156,6 +156,7 @@ public class PlayerTargeting : MonoBehaviour {
 
         // find closest targetable-thing and sets it as our target:
         foreach(TargetableThing pt in potentialTargets) {
+            
             
             float dd = (pt.transform.position - transform.position).sqrMagnitude;
 
