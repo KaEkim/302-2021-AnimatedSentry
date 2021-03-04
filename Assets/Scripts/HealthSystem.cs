@@ -8,6 +8,8 @@ public class HealthSystem : MonoBehaviour
 
     public float healthMax = 100;
 
+    public ParticleSystem prefabDmg;
+
     int timer = 100;
 
     bool isDead = false;
@@ -17,12 +19,11 @@ public class HealthSystem : MonoBehaviour
     private void Start()
     {
         health = healthMax;
-        
-
     }
 
     private void Update()
     {
+
         if (isDead)
         {
             if (timer > 0)
@@ -32,12 +33,15 @@ public class HealthSystem : MonoBehaviour
                 print(timer);
             }
             if (timer <= 0) Destroy(this.gameObject);
-
         }
     }
 
     public void TakeDamage(float dmgAmount)
     {
+        Vector3 particlePos = new Vector3(0, 2, 0);
+
+        Instantiate(prefabDmg, this.transform.position + particlePos, new Quaternion(0,0,0,transform.rotation.w));
+
         if (dmgAmount <= 0)
         {
             print("took neg damage");
@@ -49,6 +53,4 @@ public class HealthSystem : MonoBehaviour
         if (health <= 0) isDead = true;
 
     }
-    
-
 }

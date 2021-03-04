@@ -155,16 +155,25 @@ public class PlayerTargeting : MonoBehaviour {
         float closestDistanceSoFar = 0;
 
         // find closest targetable-thing and sets it as our target:
-        foreach(TargetableThing pt in potentialTargets) {
-            
-            
-            float dd = (pt.transform.position - transform.position).sqrMagnitude;
+        try
+        {
+            foreach (TargetableThing pt in potentialTargets)
+            {
 
-            if(dd < closestDistanceSoFar || target == null) {
-                target = pt.transform;
-                closestDistanceSoFar = dd;
+
+                float dd = (pt.transform.position - transform.position).sqrMagnitude;
+
+                if (dd < closestDistanceSoFar || target == null)
+                {
+                    target = pt.transform;
+                    closestDistanceSoFar = dd;
+                }
+
             }
-
+        }
+        catch
+        {
+            return;
         }
 
     }

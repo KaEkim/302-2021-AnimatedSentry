@@ -11,6 +11,8 @@ public class CannonController : MonoBehaviour
 
     public Transform self;
 
+
+
     public GameObject bullet;
     private float speed = 4f;
     private bool bulletDelay = true;
